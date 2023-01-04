@@ -1,6 +1,6 @@
-# google-form-shuffler
-評価実験などのバイアスを無くすために、質問順や選択肢をランダムに入れ替えるGoogleフォーム用スクリプト。  
+評価実験などのバイアスを無くすために、選択肢付の質問をランダムに入れ替えるGoogleフォーム用スクリプト。  
 Script for Google Forms that randomly replaces the order of questions and choices to eliminate bias in evaluation experiments, etc.
+フォーム内設定の「質問の順番をシャッフルする」だと、イマイチうまく機能しない部分を手動で設定できるようになります。
 
 # 仕様
 - 事前に選択肢を入れ替えたアイテム（質問）を2パターンを作成しておく
@@ -11,26 +11,38 @@ Script for Google Forms that randomly replaces the order of questions and choice
 - 回答結果をスプレッドシート上で集約して表示
 
 # テンプレートの使い方
-Google form でセクションとアイテムを以下のように作成
+1. Google form でセクションとアイテムを以下のように作成
+
 ```
-1. 事前アンケート
+・ 事前アンケート
     ・名前、年齢、性別など
-2. 表示セクション
+・ 表示セクション
     ・質問1-A
     ・質問1-B（ex:1-Aの左右を入れ替えたもの）
     ・質問2-A
     ・質問2-B
     ・ ...
-3. 非表示セクション
-4. 事後アンケート
+・ 非表示セクション
+・ 事後アンケート
     ・意見、感想など
 ```
 
-[form_shuffler_ss_template](https://docs.google.com/spreadsheets/d/19pneBd4V2cqGcVKPDRbEKeBrHw1AqKCBnSpquv6llUU/edit?usp=sharing)から「ファイル->コピーを作成」で自身のドライブ内にスプレッドシートをコピー
+2. [form_shuffler_ss_template](https://docs.google.com/spreadsheets/d/19pneBd4V2cqGcVKPDRbEKeBrHw1AqKCBnSpquv6llUU/edit?usp=sharing)から「ファイル->コピーを作成」で自身のドライブ内にスプレッドシートをコピー
 
-Google form「回答->スプレッドシートの作成（緑のマーク）->既存のスプレッドシートを選択」から自身のドライブ内にコピーしたスプレッドシートを選択
+3. Google form「回答->スプレッドシートの作成（緑のマーク）->既存のスプレッドシートを選択」から自身のドライブ内にコピーしたスプレッドシートを選択  
+<img src="https://user-images.githubusercontent.com/82018274/210553049-2b2b9a80-8d5a-4258-8b3c-3044f2866961.png" width="400px">  
 
-Google form 編集画面右上から「スクリプトエディタ」を起動  
-<img src="https://user-images.githubusercontent.com/82018274/210539964-c8b7d362-e313-4d72-b4ad-0a8297338ec8.png" width="200px">
+4. Google form 編集画面右上から「スクリプトエディタ」を起動  
+<img src="https://user-images.githubusercontent.com/82018274/210539964-c8b7d362-e313-4d72-b4ad-0a8297338ec8.png" width="200px">  
 
-プロジェクト内に.gsファイルをすべて追加
+5. プロジェクト内に`.gs`ファイルをすべて追加。スプレッドシートとフォームのidを書き換えておく（ex:`https://docs.google.com/forms/d/XXXXXXXXXXXXXXXXXXXXXXXX/edit`）
+6. `createForm.gs`を実行してスプレッドシートへのIDの記入と質問順の入れ替えを実行
+7. 「トリガー」から新規トリガーを以下に設定して追加
+```
+実行する関数　　　　　　「main」
+実行するデプロイを選択　「Head」
+イベントのソースを選択　「フォームから」
+イベントの種類を選択　　「フォーム送信時」
+```
+
+以降、回答者が回答を送信する度にスプレッドシートへの記入とフォームの入れ替えが行われます。回答結果はフォームとスプレッドシートの両方から確認できます。

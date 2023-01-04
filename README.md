@@ -53,5 +53,5 @@ Script for Google Forms that randomly replaces the order of questions and choice
 ```
 
 以降、回答者が回答を送信する度にスプレッドシートへの記入とフォームの入れ替えが行われます。  
-回答結果はフォームとスプレッドシートの両方から確認できます。スプレッドシート`statistics`で回答を集約すると見やすくなります。
+回答結果はフォームとスプレッドシートの両方から確認できます。スプレッドシート`statistics`で回答を集約すると見やすくなります。  
 スプレッドシート`answer`にidを追加したり、`SCALE`を書き換えることで、他の回答も取得できるようになります。
